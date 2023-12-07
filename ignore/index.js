@@ -2,7 +2,9 @@
 
 const inquirer = require('inquirer');
 const fs = require('fs');
-const {Square, Circle, Triangle} = require('utils/SVG.js')
+const {Square, Circle, Triangle} = require('./Assets/SVG.js')
+
+//List out all the needed questions for generating the SVG logo
 
 const questions = 
 [
@@ -29,17 +31,27 @@ const questions =
   },
 ];
 
+//Function to write the SVG file
+
 function createSVG(data) {
   fs.writeFile("logo.svg", data, function (err) {
       err ? console.log(err) : console.log("Generated logo.svg.")
   });
 }
 
+
+//Function to run inquirer, collect user input, and place it into the svg file
+
 function init() {
   inquirer.prompt(questions)
-  .then (answers => {
-    createSVG()
-  })
+  .then((answers) => {
+    if (answers.logo.length > 3) {
+      console.log("Must enter a value of no more than 3 characters");
+      init();
+    } else {
+      createSVG(generateSVG(answers))
+    }
+  });
 }
 
 init();
