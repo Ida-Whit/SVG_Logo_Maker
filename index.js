@@ -2,7 +2,7 @@
 
 const inquirer = require('inquirer');
 const fs = require('fs');
-const {Square, Circle, Triangle} = require('./Assets/SVG.js')
+const generateSVG = require("./lib/shapes")
 
 //List out all the needed questions for generating the SVG logo
 
@@ -53,5 +53,7 @@ function init() {
     }
   });
 }
+
+//Run the function
 
 init();
